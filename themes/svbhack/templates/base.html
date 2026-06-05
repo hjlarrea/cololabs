@@ -6,8 +6,8 @@
   <link rel="stylesheet/less" type="text/css" href="{{ SITEURL }}/theme/css/style.less">
   <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
   -->
-  <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/style.css">
-  <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/style.css?v={{ ASSET_VERSION }}">
+  <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/pygments.css?v={{ ASSET_VERSION }}">
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
 
   <meta charset="utf-8" />
@@ -39,10 +39,10 @@
       {% if not HIDE_USER_LOGO %}
       <a href="{{ SITEURL }}">
         {% if USER_LOGO_URL %}
-        <img src="{{ USER_LOGO_URL }}" alt="logo"
+        <img src="{{ USER_LOGO_URL }}?v={{ ASSET_VERSION }}" alt="logo"
         {%- if ROUND_USER_LOGO %} class="round-img"{% endif %}>
         {% else %}
-        <img src="{{ SITEURL }}/theme/images/logo.png" alt="logo">
+        <img src="{{ SITEURL }}/theme/images/logo.png?v={{ ASSET_VERSION }}" alt="logo">
         {% endif %}
       </a>
       {% endif %}

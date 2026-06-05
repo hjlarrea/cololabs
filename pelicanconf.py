@@ -7,6 +7,7 @@ I18N_TEMPLATES_LANG = "en"
 MAIN_MENU = True
 SITELOGO = SITEURL + "/images/darkLogo.png"
 FAVICON = SITEURL + "/images/favicon.ico"
+ASSET_VERSION = '20260605'
 PATH = "content"
 
 TIMEZONE = 'America/Argentina/Buenos_Aires'
@@ -24,7 +25,11 @@ THEME = "themes/svbhack"
 ROUND_USER_LOGO = False
 USER_LOGO_URL = SITEURL + "/images/darkLogo.png"
 ARTICLE_PATHS = ['articles']
-STATIC_PATHS = ['images']
+STATIC_PATHS = ['images', 'extra/CNAME', 'extra/.nojekyll']
+EXTRA_PATH_METADATA = {
+    'extra/CNAME': {'path': 'CNAME'},
+    'extra/.nojekyll': {'path': '.nojekyll'},
+}
 DISPLAY_PAGES_ON_MENU = True
 DISPLAY_CATEGORIES_ON_MENU = True
 MENUITEMS = (
