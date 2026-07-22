@@ -100,6 +100,7 @@ aside {
           border: 3px solid @light-grey;
           .border-radius(15px);
           color: @med-grey;
+
         }
       }
     }
@@ -156,6 +157,13 @@ aside {
             height: 17px;
             fill: currentColor;
           }
+
+          img {
+            width: 28px;
+            height: 28px;
+            .border-radius(50%);
+            object-fit: cover;
+          }
         }
 
         span.social_name {
@@ -167,6 +175,11 @@ aside {
 
       a.social_link_github span.social_mark {
         background: #24292f;
+      }
+
+      a.social_link_larrea span.social_mark {
+        overflow: hidden;
+        background: @white;
       }
 
       a.social_link_linkedin span.social_mark {

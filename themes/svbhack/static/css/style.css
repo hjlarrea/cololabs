@@ -129,6 +129,14 @@ aside div#user_meta div.social_links a.social_link span.social_mark svg {
   height: 17px;
   fill: currentColor;
 }
+aside div#user_meta div.social_links a.social_link span.social_mark img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  object-fit: cover;
+}
 aside div#user_meta div.social_links a.social_link span.social_name {
   display: none;
   font-size: .86rem;
@@ -136,6 +144,10 @@ aside div#user_meta div.social_links a.social_link span.social_name {
 }
 aside div#user_meta div.social_links a.social_link_github span.social_mark {
   background: #24292f;
+}
+aside div#user_meta div.social_links a.social_link_larrea span.social_mark {
+  overflow: hidden;
+  background: #ffffff;
 }
 aside div#user_meta div.social_links a.social_link_linkedin span.social_mark {
   background: #0a66c2;

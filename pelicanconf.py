@@ -7,7 +7,7 @@ I18N_TEMPLATES_LANG = "en"
 MAIN_MENU = True
 SITELOGO = SITEURL + "/images/darkLogo.png"
 FAVICON = SITEURL + "/images/favicon.ico"
-ASSET_VERSION = '20260605'
+ASSET_VERSION = '20260722-4'
 PATH = "content"
 
 TIMEZONE = 'America/Argentina/Buenos_Aires'
@@ -47,6 +47,7 @@ MENUITEMS = (
 
 # Social widget
 SOCIAL = (
+    ("Larrea", "https://larrea.com.ar"),
     ("GitHub", "https://github.com/hjlarrea"),
     ("LinkedIn", "https://linkedin.com/in/hjlarrea"),
     ("YouTube","https://youtube.com/@cololabs")
