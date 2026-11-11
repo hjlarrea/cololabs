@@ -4,6 +4,16 @@ ColoLabs is a creative umbrella and personal workspace where curiosity turns int
 
 This repository contains the source for the ColoLabs website. It is a [Pelican](https://getpelican.com/) static site: source content lives under `content/`, Pelican renders it with the configured theme and settings, and generated HTML is written to `output/`.
 
+## Article review and publishing
+
+Articles are proposed in [cololabs-preview](https://github.com/hjlarrea/cololabs-preview)
+and rendered at https://preview.cololabs.com.ar. A human promotes the reviewed
+commit into a production pull request, then publishes after merging.
+
+Follow the [complete publishing procedure](docs/publishing.md) for workstation
+setup, writing, previews, review, promotion, production publishing and OpenClaw access.
+The [OpenClaw instructions](docs/openclaw-editorial.md) use the same proposal flow.
+
 ## Project Structure
 
 - `content/articles/` - Blog posts and dated article content.
@@ -20,6 +30,7 @@ The Makefile wraps the common Pelican commands:
 - `make clean` - Remove the generated `output/` directory.
 - `make regenerate` - Watch source files and rebuild when they change.
 - `make publish` - Build the site using production settings from `publishconf.py`.
+- `make preview` - Build an unpublished review copy using `previewconf.py`.
 - `make serve PORT=8000` - Build and serve the site at `http://localhost:8000`.
 - `make devserver PORT=8000` - Serve the site and regenerate it when files change.
 - `make github` - Build with production settings, import `output/` into the `gh-pages` branch, and push it.
