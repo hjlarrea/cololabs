@@ -206,6 +206,23 @@ Pages custom-domain setting. Production remains `hjlarrea/cololabs`.
 For production, retain existing Pages source `gh-pages` and domain
 `cololabs.com.ar`. The preview workflow has an explicit repository guard and skips
 all its jobs in production. `Validate site` runs read-only builds on PRs.
+Production `main` requires a PR and the `Validate Pelican builds` check, including
+for administrators. It does not require a second person's approval, so the owner
+can merge their own reviewed articles. Force pushes and branch deletion are blocked.
+Both repositories must have pull requests enabled in Settings; disabling them
+causes PR creation to fail even when the CLI user is an administrator.
+
+GitHub may take time to issue the preview certificate after the DNS record is
+created. Once the certificate is available, enable Enforce HTTPS in preview Pages
+settings, or run:
+
+```sh
+gh api --method PUT repos/hjlarrea/cololabs-preview/pages -F https_enforced=true
+```
+
+If GitHub reports that the certificate does not exist yet, wait and retry. Preview
+builds always use the intended HTTPS URL, so no HTTP asset links remain after the
+certificate becomes available. Do not bypass certificate verification for promotion.
 
 ## Maintenance and troubleshooting
 
