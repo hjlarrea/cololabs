@@ -24,6 +24,10 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 ```
 
+Your workstation credential needs Contents read/write and Pull requests read/write
+on production for promotion. An existing CLI token may be able to push code while
+still lacking permission to create PRs; check both permissions if promotion fails.
+
 The repos share history but are independent GitHub repositories: GitHub cannot fork
 a repository into the same owning account. Production PRs therefore use a temporary
 branch in the production repository, created by the human promotion command.
