@@ -13,6 +13,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="{{ AUTHOR }}">
+  {% if PREVIEW %}
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  {% endif %}
   <meta name="description" content="Posts and writings by {{ AUTHOR }}">
 
   {% if FEED_ALL_ATOM %}
@@ -34,6 +37,11 @@
 </head>
 
 <body>
+  {% if PREVIEW %}
+  <div role="status" style="background:#fff3cd;color:#332701;padding:12px;text-align:center;overflow-wrap:anywhere;position:relative;z-index:10">
+    Preview — unpublished review copy. Commit: <code>{{ PREVIEW_COMMIT|e }}</code>
+  </div>
+  {% endif %}
   <aside>
     <div id="user_meta">
       {% if not HIDE_USER_LOGO %}
