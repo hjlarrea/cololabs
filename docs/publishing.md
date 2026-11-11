@@ -169,6 +169,18 @@ selection must include only the preview repository. A separate identity is easie
 to audit. Provision the identity/token on the OpenClaw machine yourself; never put
 credentials in Git or the prompt. No bot username has been assumed or invited.
 
+Once the OpenClaw account exists, invite it from the preview repo's Settings →
+Collaborators, or run this as the repository owner (replace `OPENCLAW_USERNAME`):
+
+```sh
+gh api --method PUT repos/hjlarrea/cololabs-preview/collaborators/OPENCLAW_USERNAME -f permission=push
+```
+
+Accept the invitation while signed in as that account. Do not invite it to the
+production repository. Authenticate its CLI on the OpenClaw host, clone the preview
+repo there, and follow the same proposal instructions. If you later enable broader
+access on that host, recheck that production credentials are still absent.
+
 ## Repository and DNS configuration
 
 The preview repo needs:
@@ -178,12 +190,18 @@ The preview repo needs:
 - Environment `github-pages` configured to allow `main` and `proposals/*` branches.
 - Actions enabled, using the provided `preview.yml` workflow.
 - DNS CNAME record: host `preview`, target `hjlarrea.github.io` (no repository path).
+- In Cloudflare, use **DNS only** (gray cloud) for that record, with TTL Auto.
 - HTTPS enforcement after DNS resolves and GitHub finishes issuing the certificate.
 
 Configure the GitHub Pages custom domain **before** adding its DNS record. Avoid
 copying production's `content/extra/CNAME` into preview output: preview settings
 exclude it. Actions deployments obtain their domain from Pages settings.
 See [GitHub custom domains](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site).
+
+The DNS target `hjlarrea.github.io` is GitHub's Pages hostname for the owning
+account; it does not change which repository serves production. GitHub routes the
+incoming `preview.cololabs.com.ar` hostname to the preview repository based on its
+Pages custom-domain setting. Production remains `hjlarrea/cololabs`.
 
 For production, retain existing Pages source `gh-pages` and domain
 `cololabs.com.ar`. The preview workflow has an explicit repository guard and skips
