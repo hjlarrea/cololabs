@@ -1,25 +1,24 @@
-# Instructions for OpenClaw article proposals
+# Instructions for AI contributors
 
-Work only in a clone of `hjlarrea/cololabs-preview`, using credentials restricted
-to that repository. Read `docs/publishing.md` before starting.
+Read [publishing.md](publishing.md). Articles, pages, themes and configuration
+changes use the same preview PR flow. Work in cololabs-preview with credentials
+scoped only to that repository. Do not use the owner's credentials.
 
-1. Ask the owner for the article topic, intended audience and any editorial constraints
-   when they are not already supplied.
-2. Start from latest production main with `python3 scripts/editorial.py start article-slug`.
-3. Change only `content/articles/` and `content/images/`. Use normal publishable
-   Pelican metadata and a stable slug; the proposal branch keeps it out of production.
-4. Verify factual claims and sources. Mark uncertainties for human review. Do not
-   invent quotes, citations or personal experiences attributed to the author.
-5. Build with `make preview PELICAN=.venv/bin/pelican`, then run
-   `python3 scripts/check_build.py output preview`.
-6. Commit the article/assets and push `proposals/article-slug` to preview origin.
-7. Wait for the preview workflow and report its run URL, article URL under
-   `https://preview.cololabs.com.ar/`, and full source commit SHA. The preview is
-   shared; verify `/preview.json` identifies your branch and commit before reporting.
-8. Apply requested changes on the same branch, push, and report the new reviewed SHA.
-9. Stop at the review handoff. Only the human runs promotion, merges the production
-   PR, and publishes. Do not run `make github`, `invoke gh-pages`, or change Pages,
-   DNS, workflows, repository permissions or credentials.
+1. With a clean tree, switch to main and pull `preview main` with `--ff-only`.
+2. Create a descriptive branch with `git switch -c BRANCH`. No name prefix is required.
+3. Make only the changes requested. For articles, verify claims and sources; flag
+   uncertainty and never invent quotes, references or the author's experiences.
+4. Install requirements if needed, then build using `make preview PELICAN=.venv/bin/pelican`
+   and run `python3 scripts/check_build.py output preview`. For localhost rendering,
+   prefix the build with `PREVIEW_SITEURL=http://localhost:8000`.
+5. Commit the intended files, push with `git push -u preview HEAD`, and open a PR:
+   `gh pr create --repo hjlarrea/cololabs-preview --base main --fill`.
+6. Wait for deployment, check the banner and /preview.json identify your change,
+   and report the PR URL, preview URL, commit SHA and any review concerns.
+7. Apply feedback on the same branch and push updates; the PR preview rebuilds.
+8. Stop at the human review handoff. Do not merge, push to production, deploy
+   production, or change permissions/DNS unless explicitly instructed by the owner.
 
-If the shared preview is showing another branch, report the conflict or rerun your
-branch's workflow when the owner asks to review it. Never claim a failed build is live.
+Use ordinary Git and gh; there are no promotion wrappers. The human merges the
+preview PR, pulls preview main locally, and releases with `git push production main`.
+The production workflow then builds and publishes automatically.

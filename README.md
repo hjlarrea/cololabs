@@ -4,45 +4,27 @@ ColoLabs is a creative umbrella and personal workspace where curiosity turns int
 
 This repository contains the source for the ColoLabs website. It is a [Pelican](https://getpelican.com/) static site: source content lives under `content/`, Pelican renders it with the configured theme and settings, and generated HTML is written to `output/`.
 
-## Article review and publishing
+## Preview and publish
 
-Articles are proposed in [cololabs-preview](https://github.com/hjlarrea/cololabs-preview)
-and rendered at https://preview.cololabs.com.ar. A human promotes the reviewed
-commit into a production pull request, then publishes after merging.
+1. Create a branch and PR in [cololabs-preview](https://github.com/hjlarrea/cololabs-preview).
+2. Every PR opening/update builds [the shared preview](https://preview.cololabs.com.ar), with no branch-name restrictions.
+3. Review and merge into preview main in GitHub.
+4. Locally, pull preview main and run `git push production main`.
+5. GitHub Actions builds and publishes [production](https://cololabs.com.ar).
 
-Follow the [complete publishing procedure](docs/publishing.md) for workstation
-setup, writing, previews, review, promotion, production publishing and OpenClaw access.
-The [OpenClaw instructions](docs/openclaw-editorial.md) use the same proposal flow.
+Articles, theme and page changes use the same flow. See the
+[complete procedure](docs/publishing.md) for the two-remotes setup, local preview,
+review and releases, and [AI contributor instructions](docs/openclaw-editorial.md).
 
-## Project Structure
-
-- `content/articles/` - Blog posts and dated article content.
-- `content/pages/` - Static pages such as about, projects, or other standalone site pages.
-- `content/images/` - Images used by articles, pages, and site content.
-- `themes/svbhack/` - The Pelican theme used to render the site.
-- `output/` - Generated site output. This is rebuilt by Pelican and used for publishing.
-
-## Local Workflow
-
-The Makefile wraps the common Pelican commands:
-
-- `make html` - Build the site into `output/` using `pelicanconf.py`.
-- `make clean` - Remove the generated `output/` directory.
-- `make regenerate` - Watch source files and rebuild when they change.
-- `make publish` - Build the site using production settings from `publishconf.py`.
-- `make preview` - Build an unpublished review copy using `previewconf.py`.
-- `make serve PORT=8000` - Build and serve the site at `http://localhost:8000`.
-- `make devserver PORT=8000` - Serve the site and regenerate it when files change.
-- `make github` - Build with production settings, import `output/` into the `gh-pages` branch, and push it.
-
-If `pelican` is not available on `PATH`, activate the local virtual environment first:
+## Local build
 
 ```sh
-source .venv/bin/activate
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+PREVIEW_SITEURL=http://localhost:8000 make preview PELICAN=.venv/bin/pelican
+python3 -m http.server 8000 --directory output
 ```
 
-Or pass the Pelican executable explicitly:
-
-```sh
-make html PELICAN=.venv/bin/pelican
-```
+Open http://localhost:8000. Rebuild after editing and refresh the browser.
+`make html` builds development output; `make publish` builds production output.
+Neither command deploys. Deployment happens automatically after the production push.

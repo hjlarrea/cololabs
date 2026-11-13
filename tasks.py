@@ -20,6 +20,7 @@ SETTINGS.update(LOCAL_SETTINGS)
 CONFIG = {
     "settings_base": SETTINGS_FILE_BASE,
     "settings_publish": "publishconf.py",
+    "settings_preview": "previewconf.py",
     # Output path. Can be absolute or relative to tasks.py. Default: 'output'
     "deploy_path": SETTINGS["OUTPUT_PATH"],
     # Github Pages configuration
@@ -89,8 +90,8 @@ def reserve(c):
 
 @task
 def preview(c):
-    """Build production version of site"""
-    pelican_run("-s {settings_publish}".format(**CONFIG))
+    """Build preview version of site"""
+    pelican_run("-s {settings_preview}".format(**CONFIG))
 
 @task
 def livereload(c):
@@ -133,20 +134,9 @@ def livereload(c):
 
 @task
 def publish(c):
-    """Publish to production via rsync"""
+    """Build production output locally. GitHub Actions handles deployment."""
     pelican_run("-s {settings_publish}".format(**CONFIG))
-    c.run(
-        'rsync --delete --exclude ".DS_Store" -pthrvz -c '
-        '-e "ssh -p {ssh_port}" '
-        "{} {ssh_user}@{ssh_host}:{ssh_path}".format(
-            CONFIG["deploy_path"].rstrip("/") + "/", **CONFIG
-        )
-    )
 
-@task
-def gh_pages(c):
-    """Publish to GitHub Pages"""
-    c.run("make github")
 
 def pelican_run(cmd):
     cmd += " " + program.core.remainder  # allows to pass-through args to pelican
