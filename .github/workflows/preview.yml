@@ -1,8 +1,10 @@
 name: Deploy preview
 
 on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
   push:
-    branches: [main, 'proposals/**']
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -15,7 +17,9 @@ concurrency:
 
 jobs:
   build:
-    if: github.repository == 'hjlarrea/cololabs-preview'
+    if: >-
+      github.repository == 'hjlarrea/cololabs-preview' &&
+      (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-24.04
     permissions:
       contents: read
@@ -34,7 +38,8 @@ jobs:
       - name: Build preview
         env:
           PREVIEW_SITEURL: https://preview.cololabs.com.ar
-          PREVIEW_COMMIT: ${{ github.sha }}
+          PREVIEW_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+          PREVIEW_BRANCH: ${{ github.head_ref || github.ref_name }}
         run: |
           make preview
           python scripts/check_build.py output preview
@@ -43,7 +48,8 @@ jobs:
           from pathlib import Path
           Path('output/preview.json').write_text(json.dumps({
               'commit': os.environ['PREVIEW_COMMIT'],
-              'branch': os.environ['GITHUB_REF_NAME'],
+              'branch': os.environ['PREVIEW_BRANCH'],
+              'build_commit': os.environ['GITHUB_SHA'],
               'repository': os.environ['GITHUB_REPOSITORY'],
               'run_url': f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}",
           }, indent=2) + '\n')
