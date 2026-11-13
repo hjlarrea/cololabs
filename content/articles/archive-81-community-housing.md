@@ -1,7 +1,7 @@
-Title: La extraña vida secreta de los edificios
-Date: 2010-12-03 10:20
+Title: La extraña vida de los edificios
+Date: 2026-08-03 10:20
 Category: Random
-Tags: Archive 81,
+Tags: Community,
 Slug: archive-81-community-housing
 Authors: Hernan J. Larrea
 Summary: Lo que comienza como una curiosidad sobre un edificio ficticio de Nueva York deriva en una exploración de la vivienda colectiva, El Hogar Obrero y la memoria que queda atrapada entre paredes.
